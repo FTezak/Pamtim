@@ -1,0 +1,88 @@
+﻿@using System.IdentityModel.Metadata
+@using System.Web.Mvc.Html
+@using Pamtim.Models
+
+@{
+    int Course_ID = ViewBag.Course_ID;
+    int Semester_ID = ViewBag.Semester_ID;
+
+    string CourseName = ViewBag.CourseName;
+    string SemesterName = ViewBag.SemesterName;
+}
+
+
+@{
+    ViewBag.Title = "Aktivnosti";
+}
+
+<div class="row">
+    <div class="col-3">
+        @Html.ActionLink("<", "Pregled", "Courses", new { Semester_ID = Semester_ID }, htmlAttributes: new { @class = "btn btn-primary mx-1 my-1 mt-2" })
+    </div>
+    <div class="col-6">
+        <h5 class="align-self-center justify-content-center text-center text-md-left mt-3">@SemesterName</h5>
+    </div>
+</div>   
+<div class="row">
+    <div class="col-3">
+
+    </div>
+    <div class="col-6">
+        <h3 class="align-self-center text-center text-md-left">@CourseName</h3>
+    </div>
+</div>
+
+
+
+
+
+<div class="row justify-content-center justify-content-md-start">
+    @foreach (ActivityViewModel item in Model.Items)
+    {
+        <div class="col-10 col-md-6 col-lg-4 my-3">
+            <div class="card">
+
+                <a href="@("\\Absence\\Pregled\\?Activity_ID=" + item.ID_Activity)" style="text-decoration: none;" aria-label="Link">
+                    <div class="row no-gutters">
+                        <div class="col-12">
+                            <div class="card-body">
+
+                                <h5 class="card-title">@item.Name</h5>
+
+                                <p class="card-title mb-0">@item.CountAbsence / @item.AllowedAbsence</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </a>
+
+                <div class="row card-footer text-center mx-0 my-0 p-1">
+
+                    <a href="@("\\Activity\\Edit\\" + item.ID_Activity)" class="align-self-center col-4 p-0" aria-label="Link">
+                        <img src="..\..\Content\edit.png" height="32" width="32"  alt="Slika"/>
+                    </a>
+                    <a href="@("\\Activity\\Delete\\?ID_Activity=" + item.ID_Activity + "&Course_ID=" + item.Course_ID)" onclick="javascript: return confirm('Obriši?');" class="align-self-center col-4 p-0" aria-label="Link">
+                        <img src="..\..\Content\delete.png" height="32" width="32"  alt="Slika"/>
+                    </a>
+                    <a href="@("\\Event\\Pregled\\?Activity_ID=" + item.ID_Activity)" class="align-self-center col-4 p-0" aria-label="Link">
+                        <img src="..\..\Content\calendar.png" height="32" width="32"  alt="Slika"/>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="w-100 d-block d-md-none"></div>
+
+
+    }
+
+
+
+    <div class="grad fixed-bottom"></div>
+    <div class=" fixed-bottom grad-b" style="background-color: #F7F7FF"></div>
+    @Html.ActionLink("Dodaj novu aktivnost", "Dodaj", "Activity", new { Course_ID = Course_ID }, htmlAttributes: new { @class = "btn btn-primary btn-lg fixed-bottom mx-5 mb-4" })
+
+
+</div>

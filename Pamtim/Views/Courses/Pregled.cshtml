@@ -1,0 +1,63 @@
+﻿@using System.IdentityModel.Metadata
+@using System.Web.Mvc.Html
+@using Pamtim.Models
+
+@{
+
+    int Semester_ID = ViewBag.Semester_ID;
+    string SemesterName = ViewBag.SemesterName;
+}
+
+@{
+    ViewBag.Title = "Kolegiji";
+}
+
+<div class="row">
+    <div class="col-3">
+        @Html.ActionLink("<", "Pregled", "Semestri", null , htmlAttributes: new { @class = "btn btn-primary mx-1 my-1 mt-3" })
+    </div>
+    <div class="col-6">
+        <h3 class="align-self-center text-center text-md-left mt-3">@SemesterName</h3>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="row justify-content-center justify-content-md-start">
+    @foreach (CourseViewModel item in Model.Items)
+    {
+        <div class="col-10 col-md-6 col-lg-4 my-3">
+            <div class="card">
+
+                <a href="@("\\Activity\\Pregled\\?Course_ID=" + item.ID_Course)" style="text-decoration: none;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                    </div>
+                </a>
+
+                <div class="row card-footer text-center mx-0 my-0 p-1">
+
+                    <a href="@("\\Courses\\Edit\\" + item.ID_Course)" class="align-self-center col-6 p-0" aria-label="Link">
+                        <img src="..\..\Content\edit.png" height="32" width="32"  alt="Slika"/>
+                    </a>
+                    <a href="@("\\Courses\\Delete\\?ID_Course=" + item.ID_Course + "&Semester_ID=" + item.Semester_ID)" onclick="javascript: return confirm('Obriši?');" class="align-self-center col-6 p-0" aria-label="Link">
+                        <img src="..\..\Content\delete.png" height="32" width="32"  alt="Slika"/>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="w-100 d-block d-md-none"></div>
+
+    }
+
+    <div class="grad fixed-bottom"></div>
+    <div class=" fixed-bottom grad-b" style="background-color: #F7F7FF"></div>
+    @Html.ActionLink("Dodaj novi kolegij", "Dodaj", "Courses", new { Semester_ID = Semester_ID }, htmlAttributes: new { @class = "btn btn-primary btn-lg fixed-bottom mx-5 mb-4" })
+
+
+</div>
+

@@ -1,0 +1,76 @@
+﻿@using System.IdentityModel.Metadata
+@using System.Web.Mvc.Html
+@using Pamtim.Models
+
+@{
+    int Activity_ID = ViewBag.Activity_ID;
+    int Course_ID = ViewBag.Course_ID;
+}
+
+
+@{
+    ViewBag.Title = "Termini";
+}
+
+<div class="row">
+    <div class="col-3">
+        @Html.ActionLink("<", "Pregled", "Activity", new { Course_ID = Course_ID }, htmlAttributes: new { @class = "btn btn-primary mx-1 my-1 mt-3" })
+    </div>
+    <div class="col-6">
+        <h2 class="align-self-center text-center text-md-left mt-3">Termini</h2>
+    </div>
+</div>
+
+
+
+
+
+<div class="row justify-content-center justify-content-md-start">
+    @foreach (EventViewModel item in Model.Items)
+    {
+
+
+        <div class="col-10 col-md-6 col-lg-4 my-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title align-self-center my-auto">@item.CourseName</h4>
+                    <h6 class="align-self-center my-auto text-center">@item.ActivityName</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row no-gutters">
+                        <div class="col-12 pr-4">
+
+
+                            <h6>@item.Day : @item.Start.ToString(@"hh\:mm") - @item.Finish.ToString(@"hh\:mm")</h6>
+                            <h6>Lokacija : @item.Location</h6>
+
+                            <hr />
+
+                            <a href="@("\\Event\\Edit\\" + item.ID_Event)" class="align-self-end mx-2" aria-label="Link">
+                                <img src="..\..\Content\edit.png" height="32" width="32" alt="Slika" />
+                            </a>
+                            <a href="@("\\Event\\Delete\\?ID_Event=" + item.ID_Event + "&Activity_ID=" + item.Activity_ID)" onclick="javascript: return confirm('Obriši?');" class="align-self-end mx-2" aria-label="Link">
+                                <img src="..\..\Content\delete.png" height="32" width="32" alt="Slika" />
+                            </a>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="w-100 d-block d-md-none"></div>
+    }
+
+
+    <div class="grad fixed-bottom"></div>
+    <div class=" fixed-bottom grad-b" style="background-color: #F7F7FF"></div>
+    @Html.ActionLink("Dodaj novi termin", "Dodaj", "Event", new { Activity_ID = Activity_ID }, htmlAttributes: new { @class = "btn btn-primary btn-lg fixed-bottom mx-5 mb-4" })
+
+
+</div>
+
+

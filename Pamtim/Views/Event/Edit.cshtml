@@ -1,0 +1,95 @@
+﻿@model Pamtim.Models.EditEventViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    string ID_Event = ViewBag.ID_Event;
+    string Activity_ID = ViewBag.Activity_ID;
+    bool pon = false;
+    bool uto = false;
+    bool sre = false;
+    bool cet = false;
+    bool pet = false;
+    bool sub = false;
+    bool ned = false;
+
+    if (ViewBag.dan == "pon") { pon = true;}
+    if (ViewBag.dan == "uto") { uto = true; }
+    if (ViewBag.dan == "sre") { sre = true; }
+    if (ViewBag.dan == "cet") { cet = true; }
+    if (ViewBag.dan == "pet") { pet = true; }
+    if (ViewBag.dan == "sub") { sub = true; }
+    if (ViewBag.dan == "ned") { ned = true; }
+
+}
+
+
+<div class="row">
+    <div class="col-3">
+        @Html.ActionLink("<", "Pregled", "Event", new { Activity_ID = Activity_ID }, htmlAttributes: new { @class = "btn btn-primary mx-1 my-1 mt-3" })
+    </div>
+    <div class="col-6">
+        <h4 class="align-self-center text-center text-md-left mt-3">Uredi</h4>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("Update", "Event", new { ID_Event = ID_Event, Activity_ID = Activity_ID }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })   
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Start, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Start, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Start, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Finish, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Finish, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Finish, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Day, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Day, new List<SelectListItem>
+                {
+                    new SelectListItem{ Text = "Ponedjeljak", Value = "Ponedjeljak", Selected = pon},
+                    new SelectListItem{ Text = "Utorak", Value = "Utorak", Selected = uto},
+                    new SelectListItem{ Text = "Srijeda", Value = "Srijeda", Selected = sre},
+                    new SelectListItem{ Text = "Četvrtak", Value = "Četvrtak", Selected = cet},
+                    new SelectListItem{ Text = "Petak", Value = "Petak", Selected = pet},
+                    new SelectListItem{ Text = "Subota", Value = "Subota", Selected = sub},
+                    new SelectListItem{ Text = "Nedjelja", Value = "Nedjelja", Selected = ned},
+                } , new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Day, "", new { @class = "text-danger" })
+            </div>
+        </div> 
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Promijeni" class="btn btn-primary"  onclick="javascript: return confirm('Promijeni?');"/>
+            </div>
+        </div>
+    </div>
+}
+
+
+

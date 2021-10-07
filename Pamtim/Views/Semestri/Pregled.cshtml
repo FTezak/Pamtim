@@ -1,0 +1,50 @@
+﻿@using System.Web.Mvc.Html
+@using Pamtim.Models
+
+@{
+    ViewBag.Title = "Semestri";
+}
+
+
+<div class="grad fixed-bottom"></div>
+<div class=" fixed-bottom grad-b" style="background-color: #F7F7FF"></div>
+@Html.ActionLink("Dodaj novi semestar", "Dodaj", "Semestri", null, htmlAttributes: new { @class = "btn btn-primary btn-lg fixed-bottom mx-5 mb-4" })
+
+
+<div class="row">
+    <div class="col-12">
+        <h2 class="align-self-center text-center text-md-left mt-3">Semestri</h2>
+    </div>
+</div>
+
+
+<div class="row justify-content-center justify-content-md-start">
+    @foreach (SemesterViewModel item in Model.Items)
+    {
+
+        <div class="col-10 col-md-6 col-lg-4 my-3">
+            <div class="card">
+
+                <a href="@("\\Courses\\Pregled\\?Semester_ID=" + item.ID_Semester)" style="text-decoration: none;" aria-label="Link">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                    </div>
+                </a>
+
+                <div class="row card-footer text-center mx-0 my-0 p-1">
+
+                    <a href="@("\\Semestri\\Edit\\" + item.ID_Semester)" class="align-self-center col-6 p-0" aria-label="Link">
+                        <img src="..\..\Content\edit.png" height="32" width="32" alt="Slika"/>
+                    </a>
+                    <a href="@("\\Semestri\\Delete\\" + item.ID_Semester)" onclick="javascript: return confirm('Obriši?');" class="align-self-center col-6 p-0" aria-label="Link">
+                        <img src="..\..\Content\delete.png" height="32" width="32"  alt="Slika"/>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="w-100 d-block d-md-none"></div>
+    }
+</div>
+
+

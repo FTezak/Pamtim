@@ -1,0 +1,390 @@
+﻿@using System.IdentityModel.Metadata
+@using System.Web.Mvc.Html
+@using Pamtim.Models
+
+@functions {
+    private class function
+    {
+    }
+}
+
+
+@{
+    ViewBag.Title = "Raspored";
+}
+
+<div class="row">
+    <div class="col-3">
+        @Html.ActionLink("<", "Pregled", "Semestri", null, htmlAttributes: new { @class = "btn btn-primary mx-1 my-1 mt-3" })
+    </div>
+    <div class="col-6">
+        <h2 class="align-self-center text-center text-md-left mt-3">Raspored</h2>
+    </div>
+</div>
+       
+
+@{
+    int pon = 0;
+    int uto = 0;
+    int sre = 0;
+    int cet = 0;
+    int pet = 0;
+    int sub = 0;
+    int ned = 0;
+
+    foreach (ScheduleViewModel item in Model.Items)
+    {
+        if (item.Day == "Ponedjeljak") { pon++; }
+        if (item.Day == "Utorak") { uto++; }
+        if (item.Day == "Srijeda") { sre++; }
+        if (item.Day == "Četvrtak") { cet++; }
+        if (item.Day == "Petak") { pet++; }
+        if (item.Day == "Subota") { sub++; }
+        if (item.Day == "Nedjelja") { ned++; }
+    }
+
+
+
+
+}
+
+<div class="my-3 @(pon > 0 ? "" : "hide ")">   
+
+    <h3>Ponedjeljak</h3>      
+
+    <div class="scrolling-wrapper @(pon > 0 ? "" : "hide ")">   
+
+        @foreach (ScheduleViewModel item in Model.Items)
+    {
+        if (item.Day == "Ponedjeljak")
+        {
+            <div class="card2">
+                <div class="card mx-2">
+                    
+                    <div class="row no-gutters">
+                        <div class="col-12">
+                            <div class="card-body px-4 py-1">
+
+
+                                <h6 class="card-title align-self-center my-auto">@item.CourseName</h6>
+                                <hr class="my-1">
+                                <p class="mb-2">@item.ActivityName</p>
+                                <p class="m-0 ">@item.Start.ToString(@"hh\:mm") - @item.Finish.ToString(@"hh\:mm")</p>
+                                <p class="mb-0 ">@item.Location</p>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="row card-footer text-center mx-0 my-0 p-1">   
+
+                        <a href="@("\\Absence\\Pregled\\?Activity_ID=" + item.Activity_ID)"  class="align-self-center col-3 p-0" aria-label="Link">
+                            <img src="..\..\Content\list.png" height="32" width="32"  alt="Slika"/>
+                        </a>
+
+                        <p class="p-0 col-6 align-self-center mx-0 my-0">@item.CountAbsence / @item.AllowedAbsence</p>        
+                        
+                        <a href="@("\\Absence\\Dodaj\\?Activity_ID=" + item.Activity_ID)" aria-label="Link">
+                            <div style="width: 32px; height: 32px; background-image: url('../../Content/add.png'); background-position: center; background-repeat: no-repeat; background-size: 100%;" class="col-3 justify-content-center align-self-center">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+</div> 
+   
+
+<div class="my-3 @(uto > 0 ? "" : "hide ")">
+
+    <h3>Utorak</h3>
+
+    <div class="scrolling-wrapper @(uto > 0 ? "" : "hide ")">
+
+        @foreach (ScheduleViewModel item in Model.Items)
+        {
+            if (item.Day == "Utorak")
+            {
+                <div class="card2">
+                    <div class="card mx-2">
+
+                        <div class="row no-gutters">
+                            <div class="col-12">
+                                <div class="card-body px-4 py-1">
+
+
+                                    <h6 class="card-title align-self-center my-auto">@item.CourseName</h6>
+                                    <hr class="my-1">
+                                    <p class="mb-3">@item.ActivityName</p>
+                                    <p class="m-0">@item.Start.ToString(@"hh\:mm") - @item.Finish.ToString(@"hh\:mm")</p>
+                                    <p class="mb-0 ">@item.Location</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row card-footer text-center mx-0 my-0 p-1">
+
+                            <a href="@("\\Absence\\Pregled\\?Activity_ID=" + item.Activity_ID)"  class="align-self-center col-3 p-0" aria-label="Link">
+                                <img src="..\..\Content\list.png" height="32" width="32"  alt="Slika"/>
+                            </a>
+
+                            <p class="p-0 col-6 align-self-center mx-0 my-0">@item.CountAbsence / @item.AllowedAbsence</p>
+
+                            <a href="@("\\Absence\\Dodaj\\?Activity_ID=" + item.Activity_ID)" aria-label="Link">
+                                <div style="width: 32px; height: 32px; background-image: url('../../Content/add.png'); background-position: center; background-repeat: no-repeat; background-size: 100%;" class="col-3 justify-content-center align-self-center">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+<div class="my-3 @(sre > 0 ? "" : "hide ")">
+
+    <h3>Srijeda</h3>
+
+    <div class="scrolling-wrapper @(sre > 0 ? "" : "hide ")">
+
+        @foreach (ScheduleViewModel item in Model.Items)
+        {
+            if (item.Day == "Srijeda")
+            {
+                <div class="card2">
+                    <div class="card mx-2">
+
+                        <div class="row no-gutters">
+                            <div class="col-12">
+                                <div class="card-body px-4 py-1">
+
+
+                                    <h6 class="card-title align-self-center my-auto">@item.CourseName</h6>
+                                    <hr class="my-1">
+                                    <p class="mb-3">@item.ActivityName</p>
+                                    <p class="m-0">@item.Start.ToString(@"hh\:mm") - @item.Finish.ToString(@"hh\:mm")</p>
+                                    <p class="mb-0 ">@item.Location</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row card-footer text-center mx-0 my-0 p-1">
+
+                            <a href="@("\\Absence\\Pregled\\?Activity_ID=" + item.Activity_ID)" class="align-self-center col-3 p-0" aria-label="Link">
+                                <img src="..\..\Content\list.png" height="32" width="32"  alt="Slika"/>
+                            </a>
+
+                            <p class="p-0 col-6 align-self-center mx-0 my-0">@item.CountAbsence / @item.AllowedAbsence</p>
+
+                            <a href="@("\\Absence\\Dodaj\\?Activity_ID=" + item.Activity_ID)" aria-label="Link">
+                                <div style="width: 32px; height: 32px; background-image: url('../../Content/add.png'); background-position: center; background-repeat: no-repeat; background-size: 100%;" class="col-3 justify-content-center align-self-center">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+<div class="my-3 @(cet > 0 ? "" : "hide ")">
+
+    <h3>Četvrtak</h3>
+
+    <div class="scrolling-wrapper @(cet > 0 ? "" : "hide ")">
+
+        @foreach (ScheduleViewModel item in Model.Items)
+        {
+            if (item.Day == "Četvrtak")
+            {
+                <div class="card2">
+                    <div class="card mx-2">
+
+                        <div class="row no-gutters">
+                            <div class="col-12">
+                                <div class="card-body px-4 py-1">
+
+
+                                    <h6 class="card-title align-self-center my-auto">@item.CourseName</h6>
+                                    <hr class="my-1">
+                                    <p class="mb-3">@item.ActivityName</p>
+                                    <p class="m-0">@item.Start.ToString(@"hh\:mm") - @item.Finish.ToString(@"hh\:mm")</p>
+                                    <p class="mb-0 ">@item.Location</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row card-footer text-center mx-0 my-0 p-1">
+
+                            <a href="@("\\Absence\\Pregled\\?Activity_ID=" + item.Activity_ID)" class="align-self-center col-3 p-0" aria-label="Link">
+                                <img src="..\..\Content\list.png" height="32" width="32"  alt="Slika"/>
+                            </a>
+
+                            <p class="p-0 col-6 align-self-center mx-0 my-0">@item.CountAbsence / @item.AllowedAbsence</p>
+
+                            <a href="@("\\Absence\\Dodaj\\?Activity_ID=" + item.Activity_ID)" aria-label="Link">
+                                <div style="width: 32px; height: 32px; background-image: url('../../Content/add.png'); background-position: center; background-repeat: no-repeat; background-size: 100%;" class="col-3 justify-content-center align-self-center">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+<div class="my-3 @(pet > 0 ? "" : "hide ")">
+
+    <h3>Petak</h3>
+
+    <div class="scrolling-wrapper @(pet > 0 ? "" : "hide ")">
+
+        @foreach (ScheduleViewModel item in Model.Items)
+        {
+            if (item.Day == "Petak")
+            {
+                <div class="card2">
+                    <div class="card mx-2">
+
+                        <div class="row no-gutters">
+                            <div class="col-12">
+                                <div class="card-body px-4 py-1">
+
+
+                                    <h6 class="card-title align-self-center my-auto">@item.CourseName</h6>
+                                    <hr class="my-1">
+                                    <p class="mb-3">@item.ActivityName</p>
+                                    <p class="m-0">@item.Start.ToString(@"hh\:mm") - @item.Finish.ToString(@"hh\:mm")</p>
+                                    <p class="mb-0 ">@item.Location</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row card-footer text-center mx-0 my-0 p-1">
+
+                            <a href="@("\\Absence\\Pregled\\?Activity_ID=" + item.Activity_ID)" class="align-self-center col-3 p-0" aria-label="Link">
+                                <img src="..\..\Content\list.png" height="32" width="32" alt="Slika" />
+                            </a>
+
+                            <p class="p-0 col-6 align-self-center mx-0 my-0">@item.CountAbsence / @item.AllowedAbsence</p>
+
+                            <a href="@("\\Absence\\Dodaj\\?Activity_ID=" + item.Activity_ID)" aria-label="Link">
+                                <div style="width: 32px; height: 32px; background-image: url('../../Content/add.png'); background-position: center; background-repeat: no-repeat; background-size: 100%;" class="col-3 justify-content-center align-self-center">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+<div class="my-3 @(sub > 0 ? "" : "hide ")">
+
+    <h3>Subota</h3>
+
+    <div class="scrolling-wrapper @(sub > 0 ? "" : "hide ")">
+
+        @foreach (ScheduleViewModel item in Model.Items)
+        {
+            if (item.Day == "Subota")
+            {
+                <div class="card2">
+                    <div class="card mx-2">
+
+                        <div class="row no-gutters">
+                            <div class="col-12">
+                                <div class="card-body px-4 py-1">
+
+
+                                    <h6 class="card-title align-self-center my-auto">@item.CourseName</h6>
+                                    <hr class="my-1">
+                                    <p class="mb-3">@item.ActivityName</p>
+                                    <p class="m-0">@item.Start.ToString(@"hh\:mm") - @item.Finish.ToString(@"hh\:mm")</p>
+                                    <p class="mb-0 ">@item.Location</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row card-footer text-center mx-0 my-0 p-1">
+
+                            <a href="@("\\Absence\\Pregled\\?Activity_ID=" + item.Activity_ID)" class="align-self-center col-3 p-0" aria-label="Link">
+                                <img src="..\..\Content\list.png" height="32" width="32" alt="Slika" />
+                            </a>
+
+                            <p class="p-0 col-6 align-self-center mx-0 my-0">@item.CountAbsence / @item.AllowedAbsence</p>
+
+                            <a href="@("\\Absence\\Dodaj\\?Activity_ID=" + item.Activity_ID)" aria-label="Link">
+                                <div style="width: 32px; height: 32px; background-image: url('../../Content/add.png'); background-position: center; background-repeat: no-repeat; background-size: 100%;" class="col-3 justify-content-center align-self-center">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+<div class="my-3 @(ned > 0 ? "" : "hide ")">
+
+    <h3>Nedjelja</h3>
+
+    <div class="scrolling-wrapper @(ned > 0 ? "" : "hide ")">
+
+        @foreach (ScheduleViewModel item in Model.Items)
+        {
+            if (item.Day == "Nedjelja")
+            {
+                <div class="card2">
+                    <div class="card mx-2">
+
+                        <div class="row no-gutters">
+                            <div class="col-12">
+                                <div class="card-body px-4 py-1">
+
+
+                                    <h6 class="card-title align-self-center my-auto">@item.CourseName</h6>
+                                    <hr class="my-1">
+                                    <p class="mb-3">@item.ActivityName</p>
+                                    <p class="m-0">@item.Start.ToString(@"hh\:mm") - @item.Finish.ToString(@"hh\:mm")</p>
+                                    <p class="mb-0 ">@item.Location</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row card-footer text-center mx-0 my-0 p-1">
+
+                            <a href="@("\\Absence\\Pregled\\?Activity_ID=" + item.Activity_ID)" class="align-self-center col-3 p-0" aria-label="Link">
+                                <img src="..\..\Content\list.png" height="32" width="32"  alt="Slika"/>
+                            </a>
+
+                            <p class="p-0 col-6 align-self-center mx-0 my-0">@item.CountAbsence / @item.AllowedAbsence</p>
+
+                            <a href="@("\\Absence\\Dodaj\\?Activity_ID=" + item.Activity_ID)" aria-label="Link">
+                                <div style="width: 32px; height: 32px; background-image: url('../../Content/add.png'); background-position: center; background-repeat: no-repeat; background-size: 100%;" class="col-3 justify-content-center align-self-center">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>  
+
+
+
+
+
+

@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <link rel="manifest" href="~/manifest.json" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0dbaff" />
+    <title>@ViewBag.Title - Pamtim</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="icon" href="../../Content/icons/icon-192x192.png" />
+    <link rel="aple-touch-icon" href="../../Content/icons/ios-icon-192x192.png" />
+    <meta name="Description" content="Author: Filip Tezak, App: Pamtim.com">
+    <meta /> 
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148219487-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-148219487-1');
+    </script>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-theme">
+        @Html.ActionLink("Pamtim", "Pregled", "Semestri", new { area = "" }, new { @class = "navbar-brand" })
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">@Html.ActionLink("Raspored", "Pregled", "Schedule", new { area = "" }, new { @class = "nav-link" })</li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                @Html.Partial("_LoginPartial")
+            </ul>
+        </div>
+
+    </nav>
+
+
+    <div class="container body-content">
+        @RenderBody()
+        
+
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+<script>
+    
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('../../serviceworker.js').then(function() {
+                console.log('Service Worker Registered');
+            });
+        });
+    }
+
+    
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            console.log('[Semestri] Pregled semestara je učitan!');
+            event.waitUntil(
+                caches.open('Offline')
+                .then(function(cache) {
+                    console.log('[Service Worker] Precaching...');
+                    cache.add('https://www.pamtim.com/Offline/Offline');    
+                })
+            )
+        });
+    }
+
+</script>
+     
+
+</body>
+</html>
